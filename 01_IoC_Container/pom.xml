@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- package -->
+	<groupId>com.gdu</groupId>
+	<artifactId>app01</artifactId>
+	
+	<!-- project -->
+	<name>01_IoC_Container</name>
+	
+	<!-- 산출물(deploy file), 우리가 war파일을 생성하고 server(=was, tomcat)에 배포를 한다. 이래야지 서버 주소를 쳐서 접속을 할 수 있다. -->
+	<packaging>war</packaging>
+	
+	<!-- 산출물(deploy file) 버전 -->
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
+	<!-- 
+	(대부분)속성(버전 관리) 
+	★★ properties 태그에 작성한 버전들은 모두 ${} (el문법으로) 로 사용할 수 있다. ★★
+	${java-version} -> 11으로 사용된다.
+	${org.springframework-version} -> 5.3.3으로 사용된다
+	maven repository.com 접속해서 태그 org. 뒤에 있는거 검색해서 버전 확인하고 태그안에 내용을 수정해주면 된다.
+	springframework 버전을 2021년 01월 버전으로 정하고, 
+	aspectj와 slf4j의 버전을 2021년 01월 버전 또는 직전 버전으로 사용하였다.
+	
+	자주 저장하는 습관은 좋지만 pom.xml을 수정할때에는 후에후에 끝에 하는게 좋다 계속 로딩 됨
+	--> 
+	<properties>
+		<java-version>11</java-version> 	<!-- ex사용예. ${java-version} = 11 --><!-- 이 버전이 옆에 자바 버전에 영향을 준거임 11로 고쳐준다 --> 
+		<org.springframework-version>5.3.3</org.springframework-version> <!-- 버전을 5버전으로 올려야함 -->
+		<org.aspectj-version>1.9.6</org.aspectj-version> 				 <!-- 이것도 올려야함 -->
+		<org.slf4j-version>1.7.30</org.slf4j-version> 					 <!-- 이것도 버전 업이 필요함 -->
+	</properties>
+	
+	<!-- 
+		maven 프로젝트
+		핵심, 알아서 라이브러리 파일을 다운로드 해준다 
+			  그 파일들은 C:/Users/계정명/.m2 에 저장된다.
+		
+		1. mavenrepository.com의 중앙저장소(central)에 각종 jar를 저장해둔다(내가 저장해둔게 아님 개발자를 위한 라이브러리 최대 저장소)
+		2. pom.xml 파일에 등록된 dependency(무슨 jar쓸려면 이 jar도 필요하다고 알려주는 기능)에 의해서 필요한 jar 파일이 중앙저장소(central)에서 다운로드 된다.
+	 	3. pom.xml의 dependency를 수정하면 jar 파일이 다운로드 되므로 pom.xml 수정 후 기다려야 한다. 
+	 	4. 다운로드 된 jar 파일들은 C:/Users/계정명/.m2 라는 디렉터리에 저장된다.
+	 	5. jar 파일에 문제가 발생했을때(아무이유없이 나만 실행안될때),
+	 		1) STS를 끈다.
+	 		2) C:/Users/계정명/.m2 라는 디렉터리를 지운다
+	 		3) USB메모리에 미리 백업한 C:/Users/계정명/.m2 디렉터리를 복사한다.
+	 		4) 다시 STS(스프링)를 켠다. (그니까 레파지토리를 들고다닌다라는 뜻, 인터넷 안되는 개발환경(보안을 위해서)에서는 따로 저장소(개인 레파지토리)를 들고다닌다.)
+	 		5) 프로젝트 우클릭 - [Maven] - [Update Project]를 실행한다(안된다하면 바로 이렇게 해결해보자)
+	  -->
+	
+	<dependencies>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version> <!-- 얘가 상단 <org.springframework-version>태그안에 기입된 버전을 참고해서 사용한다, 고로 여기서 바꿔주면 버전 관리에 용이하다. -->
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+				
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>	
+		
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+				
+		<!-- 
+		Servlet, 전에 말했던 자르 파일 따로 안 다운 받아도 메이븐 코드만 입력해도
+		설정해주는 코드랑 똑같은 코드이다.
+		dependency태그 내용을 바꿀때는 버전만 바꾸는게 아니라 통째로 바꾸는게 좋다
+		artifactId가 바뀌므로  
+		-->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>javax.servlet.jsp-api</artifactId>
+		    <version>2.3.3</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+	
+		<!-- Test, junit jupiter는 5버전이므로 헷갈리지 말기 우리는 4버전만 씀 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency> 
+		
+	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java-version}</source> <!-- 자바 버전이 영향을 끼치는 태그 -->
+                    <target>${java-version}</target> <!-- 프로퍼티 태그에 저장되어 있었으므로 el태그를 쓸수 있다. -->
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

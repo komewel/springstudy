@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		안녕. 난 Spring Bean Configuration File이야. 
+		난 IoC Container(스프링 컨테이너)에 Bean을 만들어 두는 파일이지.
+		내가 <bean> 태그를 사용하면 Bean이 만들어져서 보관돼.
+	-->
+	<!-- id에는 객체 이름을 class에는 객체 타입을적어주고 ctrl + spacebar
+		 누르면 알아서 타입 설정 해준다. -->
+	<!-- 
+	    Calculator calc = new Calculator();
+		Student student = new Student();
+		student.setStuNo("10101");
+		student.setName("강나래");
+		student.setCalculator(calc);
+	 -->
+	<!--
+		default constructor + setter 
+		<property name="stuNo"> 태그는 setStuNo() 메소드를 이용한다.
+		<property name="name"> 태그는 setName() 메소드를 이용한다.
+		<property name="calculator"> 태그는 setCalculator() 메소드를 이용한다.
+	 -->	 
+
+	<bean id="calc" class="com.gdu.app01.xml01.Calculator" /> 
+	<bean id="student" class="com.gdu.app01.xml01.Student">
+		<property name="stuNo" value="10101" />
+		<property name="name" value="강나래" />
+		<property name="calculator" ref="calc" />  
+		<!-- bean을 값으로 가질떄는 value 속성에 작성 안한다, ref 속성으로 저장한다. -->
+	</bean>
+	
+
+</beans>
