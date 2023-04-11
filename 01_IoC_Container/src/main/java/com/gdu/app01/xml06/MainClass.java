@@ -1,4 +1,4 @@
-package com.gdu.app01.xml04;
+package com.gdu.app01.xml06;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -7,10 +7,9 @@ public class MainClass {
 
 	public static void main(String[] args) {
 
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("xml04/app-context.xml");
-		MyDAO dao = ctx.getBean("dao", MyDAO.class);
-		dao.list();
-		
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("xml06/app-context.xml");
+		GymMember member =  ctx.getBean("member", GymMember.class);
+		member.memberInfo();
 		ctx.close();
 	}
 

@@ -2,13 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<bean id="user" class="com.gdu.app01.xml03.User">
-		<property name="name" value="김영환" />
-		<property name="age">
-			<value>65</value>
-		</property>
-		<property name="equipment" ref="equipment" />
-	</bean>
 
+	<bean id="myConn" class="com.gdu.app01.xml04.MyConnection"> <!-- id는 객체이름이라고 생각하면 편하다, oracle에 접속하기 위한 bean태그를 이용한 리소스 작업, 작업하려는 필드명이랑 동일하게 써야 제대로 인식한다. -->
+		<property name="driver" value="oracle.jdbc.OracleDriver" />	
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />	
+		<property name="user" value="GDJ61" />	
+		<property name="password" value="1111" />	
+	</bean>
+	
+	<!-- 
+		<bean> 태그의 scope 속성
+		
+		1. scope = "singleton"
+			1) Spring Container에 bean을 하나만 만든다.
+			2) 디폴트 속성이다 scope 속성을 따로 기입 안해두면 알아서 singleton이 된다.
+		2. scope="prototype"
+			1) Spring Container에 bean을 여러 개 만든다.
+			2) getBean() 메소드로 bean을 요청할 때마다 새로운 bean을 계속 만든다(싱글톤이 아닐때 차이)
+	 -->
+	
+	<!-- dao의 싱글톤을 이렇게 만들어둘수 있다 -->
+	<bean id="dao" class="com.gdu.app01.xml04.MyDAO" scope="singleton" />
 </beans>

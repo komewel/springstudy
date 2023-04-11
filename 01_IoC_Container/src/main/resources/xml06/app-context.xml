@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="calc" class="com.gdu.app01.xml06.Calculator" />
+	
+	<!-- 생성자로 값을 못 넘겨주는 상황도 생긴다 bean 생성자로만 넘기는 방법이 먹힐때도 있다. -->
+	
+	<bean id="bmiCalc" class="com.gdu.app01.xml06.BmiCalculator">
+		<constructor-arg value="1.85" />
+		<constructor-arg value="80.5" />
+		<constructor-arg ref="calc" /> <!-- 다른 bean의 값을 가져오고 싶으면 reference 속성을 써야한다, 계산기를 넘겨 받아야 하니까 -->
+	</bean>
+
+	<bean id="member" class="com.gdu.app01.xml06.GymMember">
+		<constructor-arg value="김종국" />
+		<constructor-arg>
+			<list>
+				<value>헬스</value>
+				<value>수영</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg ref="bmiCalc" />
+	</bean>
+</beans>

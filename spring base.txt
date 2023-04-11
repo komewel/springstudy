@@ -28,7 +28,7 @@ server.xml 들어가서 포트번호를 9090으로 바꿔준다.
 퍼스펙티브 들어가서 기본 설정을 스프링으로 맞춰서 쓰면 된다.
 (프리퍼런스 들어가서 원래 하는 설정 다 맞춰주면 됨)
 
-스프링에서는 contextPath가 프로젝트이름이 아니다
+스프링에서는 contextPath(대표이름)가 프로젝트이름이 아니다
 사용할 프로젝트가 달라지기 때문에 spring legacy project로 바뀌어진다.
 이걸 이용해서 maven 프로젝트를 실행시킨다
 
@@ -52,6 +52,33 @@ src/main/java
 
 xml 문서내에서 계산기능이 필요할때는 자바코드를 이용할수 있다. 자바로 
 bean파일을 만든다.
+
+IoC container 에다가 객체(Bean)을 spring bean configuration file을 만든다
+ 
+GenericXmlApplicationContext를 이용해 만들어진 bean을 getBean("id")을 이용해 가져다가 쓴다.
+
+@Configuratuon
+@Bean
+을 이용해서 자바코드로 만들어 줄수도 있다.
+
+oracle을 이용해서 ojdbc6.jar을 이용해서 dao를 만들어줄수 있다
+근데 ojdbc8.jar 
+
+자르 파일을 추가하는 방법은 dependency 태그로 추가한다.
+
+
+윈도우 프리퍼런스 콘솔검색 80000글자 제한 해제하자
+
+war 파일을 만들어서 톰캣에서 배포와 빌드
+
+우리가 하는 방식인
+legacy프로젝트도 구식이다
+요즘은 boot
+
+동적값을 리스트 파일이 아닌 첫화면은 웰컴파일로 설정해놓으면
+아무런 기능을 못한다. 웰컴파일을 직접 작성해야한다 
+그래야 값을 가지고 갈일이 있으면 처리가 된다.
+
 
 
 

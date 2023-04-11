@@ -49,10 +49,18 @@
 	 		2) C:/Users/계정명/.m2 라는 디렉터리를 지운다
 	 		3) USB메모리에 미리 백업한 C:/Users/계정명/.m2 디렉터리를 복사한다.
 	 		4) 다시 STS(스프링)를 켠다. (그니까 레파지토리를 들고다닌다라는 뜻, 인터넷 안되는 개발환경(보안을 위해서)에서는 따로 저장소(개인 레파지토리)를 들고다닌다.)
-	 		5) 프로젝트 우클릭 - [Maven] - [Update Project]를 실행한다(안된다하면 바로 이렇게 해결해보자)
+	 		5) 프로젝트 우클릭 - [Maven] - [Update Project]를 실행한다(안된다하면 바로 이렇게 해결해보자), pom.xml 작업을 해줬을대도 한번씩 눌러주면 좋다
 	  -->
 	
-	<dependencies>
+	<dependencies> <!-- dependency를 추가할거면 이태그 내부에 작성해야한다. -->
+	
+		<!-- ojdbc8.jar -->
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>21.1.0.0</version>
+		</dependency>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
