@@ -1,5 +1,5 @@
 package com.gdu.app01.xml03;
-
+// Namespaces 안에 p기능을 부여 해주면 따로 property 태그를 안줘도 각각 필드값에 value값이나 객체화 시켜줄 수 있다.
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 

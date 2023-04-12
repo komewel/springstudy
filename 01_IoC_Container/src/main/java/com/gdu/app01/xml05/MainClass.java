@@ -1,5 +1,5 @@
 package com.gdu.app01.xml05;
-
+// List나 Set이나 Map에다가 각종 List, Set, Map태그안에 value, value, entry태그로 값을 줄 수 있다.
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;

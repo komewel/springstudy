@@ -1,5 +1,6 @@
 package com.gdu.app01.java_into_xml;
-
+// 자바로 bean 파일 작업하고 보통 annotation기능을 쓰는데 
+// generic을 쓴다 xml에서 빈 기능을 쓰면서 이렇게 되는듯
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 

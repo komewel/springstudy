@@ -1,5 +1,5 @@
 package com.gdu.app01.xml01;
-
+// property태그에 value 속성으로 값을 준다 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -9,6 +9,7 @@ public class MainClass {
 		// Student haksang 객체를 만들고, haksang 객체가 가지고 있는 계산기 사용하기
 		// 쓰는 클래스는 두개인데 왜 new는 하나밖에 없냐
 		// 결국엔 new 없이 모든 객체 기능을 쓰는게 목표(spring의 특권)
+		
 		
 		/*
 		Student haksang = new Student();
