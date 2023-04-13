@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+		
+		<!-- 상속받은 파일을 bean으로 만들기, Spring Container에 등록된 Bean파일 -->
+		<bean id="firstService" class="com.gdu.app03.service.FirstServiceImpl"></bean>
+		<bean id="secondService" class="com.gdu.app03.service.SecondServiceImpl"></bean>
+		
+		<!-- 인터페이스를 bean으로 만들기, 서비스 구현체는 인터페이스로 받아도 된다. -->
+		<!-- <bean id="firstService2" class="com.gdu.app03.service.IFirstService"></bean>-->
+		
+			
+		
+</beans>

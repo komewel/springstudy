@@ -20,20 +20,38 @@ public class DiController {
 	 	
 	 	1. @Inject
 	 		1) Bean의 타입(class)이 일치하는 Bean을 가져와서 주입한다.
-	 		2) 동일 타입의 Bean이 2개 이상이면 오류가 발생한다.
-	 			person p1 = new Person("Kim");
-	 			person p2 = new Person("Lee");
-	 			엄연히 다른 객체지만 inject 기능에서는 타입이 같기 때문에 같은걸로 인식한다.
-	 		3) 동일 타입의 Bean을 구별하기 위해서 @Qualifire를 사용할 수 있다.
+	 		2) 동일 타입의 Bean이 2개 이상이면 Bean의 이름(id)이 일치하는 Bean을 가져온다.
+	 		3) 타입(class)과 이름(id)이 일치하는 Bean이 없는 경우 오류가 발생한다.
+	 		4) 가져올 Bean의 이름을 강제로 지정하기 위해서 @Named(javax.inject.Named)를 사용할 수 있다.
 	 			
-	 	2. @Resource
-	 		1) Bean의 이름(id)이 일치하는 Bean을 가져온다.(이거는 타입이 아니라 이름으로 인식해서 가져온다.)
-	 		2) 동일한 이름의 Bean이 없으면 오류가 발생한다.
+		2. @Resource
+			1) javax.annotation.Resource
+			2) javax-annotation-api dependency가 필요하다.
+				pom.xml에 추가할 dependency
+				<dependency>
+	    			<groupId>javax.annotation</groupId>
+	    			<artifactId>javax.annotation-api</artifactId>
+	    			<version>1.3.2</version>
+				</dependency>
+			3) Bean의 이름(id)이 일치하는 Bean을 가져온다.
+			4) 동일한 이름의 Bean이 없으면 오류가 발생한다.
+			5) 참고 예시
+				@Resource(name="bbs1") private Bbs b1;
+				@Resource(name="bbs2") private Bbs b2;
 
 	 	3. @Autowired
+	 		1) org.springframework.beans.factory.annotation.Autowired
+			2) @Inject와 동일하게 동작한다.
+				(1) Bean의 타입(class)이 일치하는 Bean을 가져온다.
+				(2) 동일 타입의 Bean이 2개 이상이면 Bean의 이름(id)이 일치하는 Bean을 가져온다.
+				(3) 타입(class)과 이름(id)이 일치하는 Bean이 없는 경우 오류가 발생한다.
+			3) @Inject에는 없는 required 속성을 사용해서 타입(class)과 이름(id)이 일치하는 Bean이 없는 경우에 오류가 발생하지 않도록 할 수 있다.
+			4) 가져올 Bean의 이름을 강제로 지정하기 위해서 @Qualifier(org.springframework.beans.factory.annotation.Qualifier)를 사용할 수 있다.
+			
+			
 			1) Bean의 타입(class)이 일치하는 Bean을 가져와서 주입한다.(inject기반이다)
 	 		2) 동일 타입의 Bean이 2개 이상이면 오류가 발생하는게 아니라 타입이 틀리면 Bean의 이름(id)도 검사한다(더블체크) 일치하는 Bean을 가져온다.
-	 		3) 이걸 쓴다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 끼얏호우!!!
+	 		3) 이걸 쓴다
 	 		4) 필드가 2개이상이면 생성자를 만드는게 더 좋다
 	 		5) 선언하고 getBean()대신 역할한다고 봐도 된다.
 	 */
@@ -59,7 +77,7 @@ public class DiController {
 	private Bbs bbs2; // @Bean public Bbs bbs2() {}
 	
 	@Autowired
-	public void method(Bbs bbs1, Bbs bbs2) {
+	public void method(Bbs bbs1, Bbs bbs2) { //아무이름이나 상관없는데 굳이 따지면 setter형식의 메소드
 		this.bbs1 = bbs1;
 		this.bbs2 = bbs2;
 	}
