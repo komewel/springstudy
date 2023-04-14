@@ -71,6 +71,53 @@ public class DiController {
 	 		1) 메소드의 매개변수(괄호 안에 있는 변수)에 있는 객체들에 자동으로 Bean을 주입한다. 
 	 		2) 메소드에는 @Autowired 선언을 생략할 수 없다.
 	 */
+	/*
+	@Autowired 사용 예시 3가지
+	
+	┌─ Spring Container ─┐
+	│  Bean1 : Bbs bbs1  │ - root-context.xml에서 만든 Bean
+	│  Bean2 : Bbs bbs2  │ - AppConfig.java에서 만든 Bean
+	└────────────────────┘
+	
+	
+	1. 필드에 @Autowired 선언하기
+	
+ 		**************************************
+		@Autowired private Bbs bbs1;  // Bbs 타입의 Bean이 2개 있기 때문에 이름(id)이 bbs1인 Bean을 가져온다.
+		@Autowired private Bbs bbs2;  // Bbs 타입의 Bean이 2개 있기 때문에 이름(id)이 bbs2인 Bean을 가져온다.
+ 		**************************************
+ 		@Autowired @Qualifier(value="bbs1") private Bbs apple;  // 강제로 Bean의 이름(id)이 bbs1인 Bean을 가져와서 apple에 전달한다.
+ 		@Autowired @Qualifier(value="bbs2") private Bbs mango;  // 강제로 Bean의 이름(id)이 bbs2인 Bean을 가져와서 mango에 전달한다.
+ 		**************************************
+		
+
+	2. 생성자 이용하기 (@Autowired 명시 없음)
+	
+ 		**************************************
+		private Bbs bbs1;
+		private Bbs bbs2;
+		
+		public DiController(Bbs bbs1, Bbs bbs2) {  // 매개변수 Bbs bbs1과 Bbs bbs2로 Bean을 가져온다.
+			this.bbs1 = bbs1;
+			this.bbs2 = bbs2;
+		}
+ 		**************************************
+	
+	
+	3. 메소드(setter method) 이용하기
+	
+		**************************************
+		private Bbs bbs1;
+		private Bbs bbs2;
+		
+		@Autowired
+		public void method(Bbs bbs1, Bbs bbs2) {  // 매개변수 Bbs bbs1과 Bbs bbs2로 Bean을 가져온다. 메소드명은 마음대로 지어도 된다.
+			this.bbs1 = bbs1;
+			this.bbs2 = bbs2;
+		}
+ 		**************************************
+ 
+*/
 	
 							// Spring Container
 	private Bbs bbs1; // <bean id="bbs1" class="Bbs">
@@ -78,7 +125,7 @@ public class DiController {
 	
 	@Autowired
 	public void method(Bbs bbs1, Bbs bbs2) { //아무이름이나 상관없는데 굳이 따지면 setter형식의 메소드
-		this.bbs1 = bbs1;
+		this.bbs1 = bbs1;					 // 이 곳의 매개변수로 Spring Container의 Bean이 자동으로 주입된다.
 		this.bbs2 = bbs2;
 	}
 	// ※스프링은 생성자가 있으면※ 자기가 할수 있는걸 찾아서 자동 주입한다.

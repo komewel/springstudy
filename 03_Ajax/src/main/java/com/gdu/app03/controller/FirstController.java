@@ -25,7 +25,7 @@ public class FirstController {
 	
 	@ResponseBody // 응답을 해주는 새로운 애너테이션 등장, 이걸 붙여줘야지 메소드의 반환값을 jsp 파일명으로 해석하지 않는다, 그냥 응답하는값(데이터, 요청하는곳으로 보내주는 데이터)이다	
 	@GetMapping(value="/first/ajax1", produces="application/json") // 응답데이터의 타입을 적어줄수 있다 , 로 두번째 속성 기입 가능(produces: 응답할 데이터의 MIME TYPE)
-	public Person ajax1(HttpServletRequest request,  //그렇지만 반환타입이 Person인데 이게 json이냐? 아닌데? 응답 데이터(반환값 Person 객체를 자동으로 JSON데이터로 변환해준다 "Jackson 라이브러리"가!! produces"application/json"를 참고해서 알아서 해준다.)
+	public Person ajax1(HttpServletRequest request,  //그렇지만 반환타입이 Person인데 이게 json이냐? 아닌데? 응답 데이터(반환값 Person 객체를(Bean객체를 또한 Map도) 자동으로 JSON데이터로 변환해준다 "Jackson 라이브러리"가!! produces"application/json"를 참고해서 알아서 해준다, 역으로도 가능하다, xml변환 버전은 따로 있다.)
 						HttpServletResponse response) {							   // 메이븐 레파지토리가서 JacksonDatabind 2.14.2 적용 땡큐땡큐!!
 		return firstService.execute1(request, response);	// 서비스가 만들어준 Person 객체를 
 			// 값을 넘겨준다.

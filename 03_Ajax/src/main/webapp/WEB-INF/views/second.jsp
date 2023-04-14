@@ -15,7 +15,7 @@
 			// 요청
 			type: 'get',
 			url: '${contextPath}/second/bmi1',
-			data: $('#frm').serialize(), 	
+			data: $('#frm').serialize(), 	// 파라미터로 정렬화 해서 싹 다 보내달라는 요청
 			// 응답	
 			dataType: 'json',
 			success: function(resData){ 				// resData : {"bmi" : 22, "obesity": "정상"}
@@ -25,12 +25,27 @@
 			error: function(jqxhr){
 				$('#bmi').text('');
 				$('#obesity').text('');
-				alert(jqxhr.responseText);
+				// alert(jqxhr.responseText + '(' + jqxhr.status + ')');
+				if(jqxhr.status == 500) {
+					alert('몸무게와 키 입력을 확인하세요.');
+				} 
 			}
 		})
 	}
 	
 	function fnBmi2(){
+		let weight = $('#weight').val(); // 변수 두개정도 나올거 같으면 밖에 선언해라
+		if(weight == '' || Number(weight) < 0 || isNaN(weight)) { // Number(weight) 숫자타입으로 바꿔주는법
+			alert('몸무게를 확인하세요.');
+			return; // 더이상 코드를 실행하지 마시오, 코드 진행을 여기서 멈춰라. 
+		} // numberformatException을 프론트에서 막아주는법
+		
+		let height = $('#height').val(); 
+		if(height == '' || Number(height) < 0 || isNaN(height)) { 
+			alert('키를 확인하세요.');
+			return; 
+		} 
+		
 		$.ajax({
 			// 요청
 			type: 'get',
@@ -45,10 +60,12 @@
 			error: function(jqxhr){
 				$('#bmi').text('');
 				$('#obesity').text('');
-				alert(jqxhr.status);
+				//alert(jqxhr.status);
+				if(jqxhr.status == 400) { //400은 BAD REQUEST를 의미한다.
+					alert('몸무게와 키는 0일 수 없습니다.');
+				}
 			}
 		})
-		
 	}
 
 </script>
