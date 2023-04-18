@@ -10,8 +10,8 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers --> 
-	<logger name="com.jdu.app04">
+	<!-- Application Loggers -->
+	<logger name="com.gdu.app03">
 		<level value="info" />
 	</logger>
 	

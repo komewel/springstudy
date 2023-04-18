@@ -12,6 +12,6 @@ public interface BoardService {
 	public int addBoard(BoardDTO board);
 	public int modifyBoard(BoardDTO board);
 	public int removeBoard(int board_no);
-	
+	// 삽입 수정 삭제 같은 경우는 숫자를 반환해주면 된다
 
 }

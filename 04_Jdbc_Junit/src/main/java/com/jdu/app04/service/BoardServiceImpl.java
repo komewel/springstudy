@@ -2,8 +2,6 @@ package com.jdu.app04.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,36 +28,34 @@ import com.jdu.app04.repository.BoardDAO;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	private BoardDAO boradDAO;
+	private BoardDAO boradDAO; // 간소화한 코드지만 이렇게 spring container에 저장된 bean객체를 간단하게 가져다가 쓸수 있다.
 	
 	@Override
-	public List<BoardDTO> getBoardList() {
+	public List<BoardDTO> getBoardList() { 
 		
-		return null;
+		return boradDAO.SelectBoardList(); // db에서 가져온 db리스트가 반환된다.
 	}
 
 	@Override
 	public BoardDTO getBoardByNo(int board_no) {
 		
-		return null;
+		return boradDAO.selectBoardByNo(board_no);
 	}
 
 	@Override
 	public int addBoard(BoardDTO board) {
-		
-		return 0;
+		return boradDAO.insertBoard(board);
 	}
 
 	@Override
 	public int modifyBoard(BoardDTO board) {
 		
-		return 0;
+		return boradDAO.updateBoard(board);
 	}
 
 	@Override
 	public int removeBoard(int board_no) {
-		
-		return 0;
+		return boradDAO.deleteBoard(board_no);
 	}
 
 }
