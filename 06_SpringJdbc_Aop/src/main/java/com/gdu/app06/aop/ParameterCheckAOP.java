@@ -35,7 +35,7 @@ public class ParameterCheckAOP { // 메소드마다 파라미터 체크하는 �
 	private static final Logger LOGGER = LoggerFactory.getLogger(ParameterCheckAOP.class);
 
 	@After("setPointCut()") // 위에 바지사장 메소드가 여기 들어감 @Around는 오류가 발생해도 로그가 찍힌다, 그에반해 @After는 메소드 실행후에 로그를 찍어준다.
-	public void paramLogging(JoinPoint joinPoint) throws Throwable {
+	public void paramLogging(JoinPoint joinPoint){
 		
 		// 모든 파라미터가 저장된 HttpServletRequest 가져오기 
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
