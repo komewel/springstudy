@@ -45,4 +45,15 @@ ex. @Controller 직접 안만들어도 이렇게 만들수도 있음
 
 원래 web.xml 들어가면 웰컴 파일(index.jsp)가 소개 되어있는데 스프링 에서는 우리가 따로 작업해줘야 한다.
 
+만드는 순서는 
+boardDTO
+boardDAO
+boardService + boardServiceImpl
+boardController + jsp
+
+aop 각문제를 해결하는 핵심로직(Service) 모든 문제에 적용되는 공통로직(aop)
+공통로직(insert, delete 이런걸 하면 트랙잭션을 해야하는데 특징이 둘다 하던가, 아예 안하던가, 두개 작업을 수행하는데 모두가 성공해야 성공 안된다면 다 실패처리 해야한다, ex)은행 거래(송금과 예금)
+
+
+
 

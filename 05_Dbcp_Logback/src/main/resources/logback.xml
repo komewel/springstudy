@@ -33,7 +33,7 @@
 	<appender name="rolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- root/log 디렉터리에 로그 파일(/log/2023-01-01.0.log)을 만든다. -->
-			<fileNamePattern>/log/app05.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>/log/app06.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<!-- 5kb씩 로그 파일을 분할한다. -->
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>5kb</maxFileSize>
@@ -50,7 +50,7 @@
 	</appender>
 	
 	<!-- Application Loggers : com.gdu.app05 패키지는 debug 수준의 로그 레벨을 가진다. -->
-	<logger name="com.gdu.app05">
+	<logger name="com.gdu.app06">
 		<level value="debug" />
 	</logger>
 	

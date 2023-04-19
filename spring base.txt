@@ -82,7 +82,12 @@ legacy프로젝트도 구식이다
 서머노트, <textarea> 기능을 좀더 다양한 기능이 포함된 기능으로 업글해준다
 getting started 들어가서 다운로드 압축풀고 webapp 아래 resoureces 아래 그냥 통째로 넣는다.( 어짜피 필요한것만 골라서 쓰면 된다.)
 
+프로젝트 close project하면 스프링 성능에 도움이 된다.
 
+메이븐 레파지토리 가서 spring jdbc 검색(코드를 좀 더 줄여준다)
+스프링이랑 버전을 맞추기 위해 5.3.3
+
+aspectj weaver 검색
 
 
 

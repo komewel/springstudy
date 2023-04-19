@@ -69,6 +69,6 @@ public class BoardController {
 	public String modify(BoardDTO board) {
 		LOGGER.debug(board.toString());  // 파라미터 확인
 		LOGGER.debug(boardService.modifyBoard(board) + "");  // 결과 확인
-		return "redirect:/board/detail.do?board_no=" + board.getBoard_no();
+		return "redirect:/board/detail.me?board_no=" + board.getBoard_no();
 	}
 	}

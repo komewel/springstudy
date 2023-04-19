@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<a href="${contextPath}/board/list.me">게시판</a> 
+	<h1>어서와용!!! 홍홍홍</h1>
 
 </body>
 </html>
