@@ -1,0 +1,46 @@
+legacy 프로젝트 만들면 수정할것 
+1. pom.xml
+webapp 아래 있는 
+2. web.xml 
+3. resources 파일 라이브러리 추가
+4. META-INF 파일 추가하기
+main 아래 있는 
+5. resources 파일 log4j을 loback으로 수정하기
+6. 웰컴 파일 만들기
+7. DTO -> DAO -> service -> controller -> jsp
+
+두가지의 mybatis 가 있다(회사가서 뭘 쓸지 모른다), final 버전은 아닙니당!
+
+MockMvc(junit 같이 테스트 해주는기능이다)
+
+메이븐 레파지토리가서  mybatis 검색
+상단 파일 들어가서 3.5.6 버전 추가
+
+두번째 파일인 
+mybatis spring 들어가서 스프링에서는 이것도 같이 배치해야지 된다.
+2.0.6버전으로 다운
+
+hikaricp(붙여서 검색하기), db 건들일때 오직 connection pull을 해준다
+3.4.5버전으로 다운
+
+spring.datasource.hikari.driver-class-name=oracle.jdbc.OracleDriver 
+이거 앞으로 오랫동안 쓸거다, 나중에 부트가면 굳이 안외워도 된다(자동으로 완성된다)
+spring.datasource.hikari.jdbc-url=jdbc:oracle:thin:@localhost:1521:xe //히카리 클래스에서 만들어진 필드
+spring.datasource.hikari.username=GDJ61
+spring.datasource.hikari.password=1111
+
+마이바티스 리소스는 src.main/resource로 옮긴다
+
+mybatis.config-location=mybatis/config/mybatis-config.xml
+마이바티스 설정(xml)들은 src/main/resources에 모아놓아라 정도는 약속되어있다.
+허나 파일명은 개발자 맘대로 라서 어디다 적어놔야 한다 경로를
+
+매퍼 경로, 이름 정해진거 없다(적어놔야 한다)
+mybatis.mapper-locations=mybatis/mapper/*.xml
+(locations로 해야한다 속성이라고 한다, 세미프로젝트만 해도 매퍼가 열라 많기
+때문에 *.xml로 해도된다 편하다)
+
+mybatis-config에 데이타소스(커넥션풀을 해주는)를 bean화 시켜줘야 하므로 다른데로 뺄 수 있다
+
+경로설정을 잘해줘야지 서버에서 돌릴때 오류가없다 중요!
+

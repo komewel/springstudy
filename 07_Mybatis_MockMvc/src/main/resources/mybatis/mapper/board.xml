@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace에는 확장자는 빼야한다 아님 패키지로 인식한다 -->
+  <!-- namespace는 mybatis.mapper.board.xml 파일을 의미한다. -->
+<mapper namespace="mybatis.mapper.board">
+
+	
+
+</mapper>
