@@ -30,31 +30,32 @@ public class DBConfig {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setDriverClassName(env.getProperty("spring.datasource.hikari.driver-class-name")); // oracle.jdbc.OracleDriver 값이 들어갔다, 
 		hikariConfig.setJdbcUrl(env.getProperty("spring.datasource.hikari.jdbc-url"));					// legacy에서는 이렇게 안해도 되지만 boot로 가면 이렇게 쓰기 때문에 나중에 수정 안하려고
-		hikariConfig.setUsername(env.getProperty("spring.datasource.hikari.usernam"));
+		hikariConfig.setUsername(env.getProperty("spring.datasource.hikari.username"));
 		hikariConfig.setPassword(env.getProperty("spring.datasource.hikari.password"));
 		return hikariConfig;
 	}
 	
+	
 	// HikariDataSource Bean
 	@Bean(destroyMethod = "close")
-	public HikariDataSource dataSource() {
+	public HikariDataSource hikariDataSource() {
 		return new HikariDataSource(hikariConfig()); 
 	}
 	// hikari 공식홈페이지 등록된 사용법이다, 이렇게 되면 hikari가 커넥션풀을 관장한다 
 	
 	// sqlSessionFactory Bean
 	@Bean
-	public SqlSessionFactory factory() throws Exception { // try catch문이 필요해서
+	public SqlSessionFactory sqlSessionFactory() throws Exception { // try catch문이 필요해서
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(dataSource());
+		bean.setDataSource(hikariDataSource());
 		bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(env.getProperty("mybatis.config-location")));
 		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapper-locations")));
 		return bean.getObject(); // factory가 반환된다, 팩토리가 만들어진다.
 	}
 	// sqlSessionTemplate Bean (기존의 SqlSession이 이런 네이밍으로 바뀌었다)
 	@Bean
-	public SqlSessionTemplate template() throws Exception { // 위에 애가 예외를 던져서 여기도 해줘야함
-		return new SqlSessionTemplate(factory()); // 메소드를 전달한다
+	public SqlSessionTemplate sqlSessionTemplate() throws Exception { // 위에 애가 예외를 던져서 여기도 해줘야함
+		return new SqlSessionTemplate(sqlSessionFactory()); // 메소드를 전달한다
 	}
 	
 	// 뭔가 줄줄이 bean을 만들면 1번째를 만들면 2번째가 재료로 쓰고 또 3번쨰는 2번째를 .... 결론적으로는 최종적으로 sqlsessiontemplate를 만들려고 이렇게 한거다.
@@ -62,6 +63,6 @@ public class DBConfig {
 	// TracsactionMannager Bean 
 	@Bean
 	public TransactionManager transActionManager() {
-		return new DataSourceTransactionManager(dataSource());
+		return new DataSourceTransactionManager(hikariDataSource());
 	}
 }

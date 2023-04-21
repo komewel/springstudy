@@ -1,0 +1,8 @@
+my-batis
+
+src/main/java
+/config, 7장에서 처음 쓰기 시작한 hikariCP 기능 설정을 해둔곳
+
+src/main/resources 
+/mybatis/1. config, 각종 편의기능 제공
+	   2. mapper, 전에 DAO가 제공하던 쿼리문을 여기에 저장	

@@ -50,7 +50,7 @@ public class BoardDAO {
 	
 	// 삽입
 	public int insertBoard(final BoardDTO BOARD) {
-		sql = "INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))";
+		sql = "INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, WRITER, CREATED_AT, MODIFIED_AT) VALUES(BOARD_SEQ.NEXTVAL, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))";
 		int result = jdbcTemplate.update(sql, new PreparedStatementSetter() { // 트랜젝션은 모두 update라는 메소드를 쓴다. 
 			
 			@Override
