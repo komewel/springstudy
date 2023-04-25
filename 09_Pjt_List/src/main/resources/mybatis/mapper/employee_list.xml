@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.gdu.app09.mapper.EmployeeListMapper">
+
+	<!-- DEPARTMENTS와 EMPLOYEES의 JOIN 결과를 저장할 resultMap 만들기 -->
+	<resultMap type="EmpDTO" id="EmpMap"> 
+		<id column="EMPLOYEE_ID" property="employeeId" />
+		<result column="FIRST_NAME" property="firstName" />
+		<result column="LAST_NAME" property="lastName" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE_NUMBER" property="phoneNumber" />
+		<result column="HIRE_DATE" property="hireDate" />
+		<result column="JOB_ID" property="jobId" />
+		<result column="SALARY" property="salary" />
+		<result column="COMMISSION_PCT" property="commissionPct" />
+		<result column="MANAGER_ID" property="managerId" />
+		<association javaType="DeptDTO" property="deptDTO">
+			<id column="DEPARTMENT_ID" property="departmentId" />
+			<result column="DEPARTMENT_NAME" property="departmentName" />
+			<result column="MANAGER_ID" property="managerId" />
+			<result column="LOCATION_ID" property="locationId" />
+		</association>
+	</resultMap>
+	<select id="getEmployeeCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEES
+	</select>
+	
+	<!-- 쿼리문은 SQL가서 테스트 돌려보고 돌리자, NVL할때 그냥 하면 안뜨는데 별명을 붙여서 하면 정상적으로 출력된다. -->
+	<select id="getEmployeeListUsingPagination" parameterType="Map" resultMap="EmpMap">
+		SELECT A.RN, A.EMPLOYEE_ID, A.FIRST_NAME, A.LAST_NAME, A.EMAIL, A.PHONE_NUMBER, A.HIRE_DATE, A.JOB_ID, A.SALARY, A.COMMISSION_PCT, A.MANAGER_ID, NVL(A.DEPARTMENT_ID, 0) AS DEPARTMENT_ID, NVL(A.DEPARTMENT_NAME, 'None') AS DEPARTMENT_NAME
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY EMPLOYEE_ID ASC) AS RN, E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.EMAIL, E.PHONE_NUMBER, E.HIRE_DATE, E.JOB_ID, E.SALARY, E.COMMISSION_PCT, E.MANAGER_ID, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+		 		  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
+		 		  ON D.DEPARTMENT_ID = E.DEPARTMENT_ID) A
+		 WHERE A.RN BETWEEN #{begin} AND #{end}  
+	</select>
+
+</mapper>
