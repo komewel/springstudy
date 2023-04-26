@@ -29,13 +29,33 @@
 		  FROM EMPLOYEES
 	</select>
 	
+	<!-- 
+		#{}와 ${}의 차이, ${}로 정렬방식 바꾸려는데 제대로 인식을 못함 
+		
+		#{} : 변수 값을 작은 따옴표(')로 묶어서 나타낸다,  WHERE A.RN BETWEEN #{begin} AND #{end} 이게 where a.rn between '1' and '10'으로 해석된다. 여기서 1이나 10은 '1'을 스스로 숫자로 인식한다(지 꼴리는대로, 맞는대로)(오라클은 문자나 숫자 암거나 줘도 괜찮다.)  
+			-> 변수 값(숫자든 문자든 가리지말고) ORDER BY EMPLOYEE_ID 'ASC'로 처리되기 때문에 SQL문법 오류가 발생한다.
+		${} : 변수 값을 따옴표로 묶지 않고 그대로 나타낸다.(아래 쿼리문에서는 정렬방식이 'ASC' 이딴 방식으로 들어가서 오류가 난거다.)  
+	 		-> 키워드, 칼럼(해석이 이상하게 되지 않게) ORDER BY EMPLOYEE_ID ASC 로 따옴표가 없이 처리되기 때문에 정상 동작한다. 
+	 -->
+	
 	<!-- 쿼리문은 SQL가서 테스트 돌려보고 돌리자, NVL할때 그냥 하면 안뜨는데 별명을 붙여서 하면 정상적으로 출력된다. -->
 	<select id="getEmployeeListUsingPagination" parameterType="Map" resultMap="EmpMap">
+		SELECT A.RN, A.EMPLOYEE_ID, A.FIRST_NAME, A.LAST_NAME, A.EMAIL, A.PHONE_NUMBER, A.HIRE_DATE, A.JOB_ID, A.SALARY, A.COMMISSION_PCT, A.MANAGER_ID, NVL(A.DEPARTMENT_ID, 0) AS DEPARTMENT_ID, NVL(A.DEPARTMENT_NAME, 'None') AS DEPARTMENT_NAME
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${column} ${order}) AS RN, E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.EMAIL, E.PHONE_NUMBER, E.HIRE_DATE, E.JOB_ID, E.SALARY, E.COMMISSION_PCT, E.MANAGER_ID, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+		 		  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
+		 		  ON D.DEPARTMENT_ID = E.DEPARTMENT_ID) A
+		 WHERE A.RN BETWEEN #{begin} AND #{end}  
+	</select>
+	
+	<!-- 스크롤에서는 정렬을 따로 못하므로 고정값 -->
+	<select id="getEmployeeListUsingScroll" parameterType="Map" resultMap="EmpMap">
 		SELECT A.RN, A.EMPLOYEE_ID, A.FIRST_NAME, A.LAST_NAME, A.EMAIL, A.PHONE_NUMBER, A.HIRE_DATE, A.JOB_ID, A.SALARY, A.COMMISSION_PCT, A.MANAGER_ID, NVL(A.DEPARTMENT_ID, 0) AS DEPARTMENT_ID, NVL(A.DEPARTMENT_NAME, 'None') AS DEPARTMENT_NAME
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY EMPLOYEE_ID ASC) AS RN, E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, E.EMAIL, E.PHONE_NUMBER, E.HIRE_DATE, E.JOB_ID, E.SALARY, E.COMMISSION_PCT, E.MANAGER_ID, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
 		 		  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
 		 		  ON D.DEPARTMENT_ID = E.DEPARTMENT_ID) A
 		 WHERE A.RN BETWEEN #{begin} AND #{end}  
 	</select>
+	
+	
 
 </mapper>
