@@ -62,7 +62,7 @@
 	recordPerPage, 한화면에 몇개씩 보여줄까 
 	pagePerBlock, 한페이지 목록개수 -->
 	<div>
-	<a href="${contextPath}/employees/search.form">사원 조회 화면으로 이동</a>
+	<a href="${contextPath}/employees/search.do">사원 조회 화면으로 이동</a>
 	</div>
 	
 	<div> 

@@ -70,7 +70,7 @@ public class PageUtil {
 			// path = request.getContextPath() + "/employees/pagination.do?order=" + order 이렇게 값이 넘어온다,
 			// 이미 파라미터 값이 들어가있는지 확인한다(?때문에)
 			
-			// path에 ?가 포함되어 있으면 이미 파라미터가 포함된 경로이므로 &를 붙여서 page파라미터를 추가한다.
+			// path에 ?가 포함되어 있으면 이미 파라미터가 포함된 경로이므로 &를 붙여서 page파라미터를 추가한다, 주소창에서 page파라미터를 추가해준다
 			
 			if(path.contains("?")) { // 물음표가 포함되어 있냐? 라는 자바식 검사 메소드
 				path += "&";

@@ -59,7 +59,7 @@ public class EmployeeListServiceImpl implements EmployeeListService {
 		map.put("order", order);
 		map.put("column", column);
 		
-		// begin ~ end 사이의 목록 가져오기, jsp로 보냄
+		// begin ~ end 사이의 목록 가져오기, jsp로 보낼준비
 		List<EmpDTO> employees = employeeListMapper.getEmployeeListUsingPagination(map);
 		
 		// pagination.jsp로 전달할(forward)할 정보를 저장하기 
@@ -97,7 +97,7 @@ public class EmployeeListServiceImpl implements EmployeeListService {
 		map.put("begin", pageUtil.getBegin());
 		map.put("end", pageUtil.getEnd());
 		
-		// begin ~ end 사이의 목록 가져오기, jsp로 보냄
+		// begin ~ end 사이의 목록 가져오기, jsp로 보낼준비
 		List<EmpDTO> employees = employeeListMapper.getEmployeeListUsingScroll(map);
 		
 		// scroll.jsp로 응답할 데이터, 
@@ -142,5 +142,72 @@ public class EmployeeListServiceImpl implements EmployeeListService {
 		
 		
 		}
+		@Override
+		public void getEmployeeListUsingSearch(HttpServletRequest request, Model model) {
+			
+			// 파라미터 column, 파라미터가 오지 않으면 null이면 빈문자열로 하겠다.
+			Optional<String> opt2 = Optional.ofNullable(request.getParameter("column"));
+			String column = opt2.orElse("");
+			
+			// 파라미터 column, 파라미터가 오지 않으면 null이면 빈문자열로 하겠다.
+			Optional<String> opt3 = Optional.ofNullable(request.getParameter("query"));
+			String query = opt3.orElse("");
+			
+			// DB로 보낼 Map 만들기
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("column", column);
+			map.put("query", query);
+			
+			Optional<String> opt1 = Optional.ofNullable(request.getParameter("page"));
+			int page = Integer.parseInt(opt1.orElse("1"));
+			
+			// 검색된 레코드 개수를 구한다.
+			int totalRecord = employeeListMapper.getEmployeeSearchCount(map);
+			
+			// recordPerPage=10으로 처리한다.
+			int recordPerPage = 10;
+			
+			// pageUtil(pagination에 필요한 모든 정보) 계산하기
+			pageUtil.setPageutil(page, totalRecord, recordPerPage);
+			
+			map.put("begin", pageUtil.getBegin());
+			map.put("end", pageUtil.getEnd());
+
+			// begin ~ end 사이의 목록 가져오기, jsp로 보낼준비
+			List<EmpDTO> employees = employeeListMapper.getEmployeeListUsingSearch(map);
+			
+			// Search.jsp로 전달할(forward)할 정보를 저장하기 
+			model.addAttribute("employees", employees);
+			model.addAttribute("pagination", pageUtil.getPagination(request.getContextPath() + "/employees/search.do?column=" + column + "&query=" + query)); // 중간에 진행중인 정보를 이어나가고 싶을때 util에다가 데이터를 넘겨줘야 한다.
+			model.addAttribute("beginNo", totalRecord - (page - 1) * recordPerPage); 
+		}
+		
+		@Override
+		public Map<String, Object> getAutoComplete(HttpServletRequest request) {
+			
+			// 파라미터 column이 전달되지 않는 경우 column=""로 처리한다. (검색할 칼럼)
+			Optional<String> opt1 = Optional.ofNullable(request.getParameter("column"));
+			String column = opt1.orElse("");
+			
+			// 파라미터 query가 전달되지 않는 경우 query=""로 처리한다. (검색어)
+			Optional<String> opt2 = Optional.ofNullable(request.getParameter("query"));
+			String query = opt2.orElse("");
+			
+			// DB로 보낼 Map 만들기(column + query)
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("column", column);
+			map.put("query", query);
+			
+			// 검색 결과 목록 가져오기
+			List<EmpDTO> employees = employeeListMapper.getAutoComplete(map);
+			
+			// search.jsp로 응답할 데이터
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("employees", employees);
+			
+			// 응답
+			return resultMap;
+		}
+		
 
 }

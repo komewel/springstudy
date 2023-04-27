@@ -121,7 +121,7 @@
 <body>
 	<!-- 무한스크린 만들기(계속 로딩되는) -->
 	<div>
-		<a href="${contextPath}/employees/search.form">사원 조회 화면으로 이동</a>
+		<a href="${contextPath}/employees/search.do">사원 조회 화면으로 이동</a>
 	</div>
 	
 	<h1>사원 목록</h1>
