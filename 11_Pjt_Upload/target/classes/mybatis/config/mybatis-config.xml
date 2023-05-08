@@ -12,7 +12,8 @@
 
   <!-- typeAliases,어떤 클래스를 줄여서 별명을 붙여서 간편하게(타이핑을 줄이기 위해서) 이용할 수 있다  -->
 <typeAliases>
-  <typeAlias alias="BbsDTO" type="com.gdu.app10.domain.BbsDTO" /> 
+  <typeAlias alias="AttachDTO" type="com.gdu.app11.domain.AttachDTO" /> 
+  <typeAlias alias="UploadDTO" type="com.gdu.app11.domain.UploadDTO" /> 
 </typeAliases>
   
 </configuration>
