@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyFileUtil {
 
-	// 경로 구분자 
-	private String sep = Matcher.quoteReplacement(File.separator); // 자바가 기억해두는 방식
+	// 경로 구분자
+	private String sep = Matcher.quoteReplacement(File.separator);
 	
-	// String path 만들기(현재 날짜 기준으로 만듦)
+	// String path 만들기
 	public String getPath() {
 		LocalDate now = LocalDate.now();
-		// 루트/storage/2023/05/08 이런식으로 저장된다.
+		// 루트/storage/2023/05/08
 		return "/storage" + sep + now.getYear() + sep + String.format("%02d", now.getMonthValue()) + sep + String.format("%02d", now.getDayOfMonth());
 	}
 	
@@ -30,17 +30,35 @@ public class MyFileUtil {
 		if(originName.endsWith("tar.gz")) {
 			extName = "tar.gz";
 		} else {
-			// split(정규식)
-			// "." 이런식으로 하면 정규식에선 모든 문자로 해석하므로 이스케이프 처리하거나 문자 클래스로 처리한다.
+			// String.split(정규식)
+			// 정규식에서 마침표(.)는 모든 문자를 의미하므로 이스케이프 처리하거나 문자클래스로 처리한다.
 			// 이스케이프 처리 : \.
 			// 문자클래스 처리 : [.]
-			String[] array = originName.split("\\."); // 자바에서는 \\ 이렇게 해야한다.
+			String[] array = originName.split("\\.");
 			extName = array[array.length - 1];
 		}
 		
 		// 결과 반환
 		// UUID.extName
-		return UUID.randomUUID().toString().replace("-", "") + "." + extName; // 랜덤으로 UUID(32글자의 랜덤값)를 만들어준다, 하이픈을 빈문자열로 바꾼다. filesystemName을 UUID로 대체한다. 
+		return UUID.randomUUID().toString().replace("-", "") + "." + extName;
 		
 	}
+
+	// String tempPath 만들기
+	public String getTempPath() {
+		return "/storage" + sep + "temp";
+	}
+	
+	// String tempfileName 만들기 (zip 파일)
+	public String getTempfileName() {
+		return UUID.randomUUID().toString().replace("-", "") + ".zip";
+	}
+	
+	// String yesterdayPath 만들기
+	public String getyesterdayPath() {
+		LocalDate date = LocalDate.now();
+		date.minusDays(1); // 날짜를 어제(1일 전)로 바꿔주고 싶다.
+		return "/storage" + sep + date.getYear() + sep + String.format("%02d", date.getMonthValue()) + sep + String.format("%02d", date.getDayOfMonth());
+	}
+	
 }
