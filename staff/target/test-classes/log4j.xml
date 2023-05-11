@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.gdu.app08">
+	<logger name="com.gdu.staff">
 		<level value="info" />
 	</logger>
 	
