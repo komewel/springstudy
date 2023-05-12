@@ -30,4 +30,10 @@
 		  )
 	</insert>
 
+	<select id="searchStaff">
+		SELECT SNO, NAME, DEPT, SALARY
+		  FROM STAFF
+		 WHERE SNO = #{sno}
+	</select>
+
 </mapper>

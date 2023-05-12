@@ -43,5 +43,9 @@ public class StaffController {
 		return staffService.addStaff2(staffDTO);
 	}
 	
+	@GetMapping("/query.json")
+	public ResponseEntity<List<StaffDTO>> search(String sno) {
+		return staffService.searchStaff(sno);
+	}
 	
 }
