@@ -1,4 +1,4 @@
-package gdu.com.app12.domain;
+package com.gdu.app12.domain;
 
 import java.sql.Date;
 

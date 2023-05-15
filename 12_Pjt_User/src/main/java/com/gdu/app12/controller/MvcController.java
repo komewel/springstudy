@@ -1,4 +1,4 @@
-package gdu.com.app12.controller;
+package com.gdu.app12.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

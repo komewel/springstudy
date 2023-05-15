@@ -14,7 +14,13 @@
 <body>
 
 	<div>
-
+		<!-- 
+		.form : 화면으로 
+		.do : 실제 수행으로			
+		-->
+		<a href="${contextPath}/user/agree.form">회원가입</a>
+		<a href="${contextPath}/user/login.form">로그인</a>
+	
 	</div>
 	
 </body>

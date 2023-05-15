@@ -1,4 +1,4 @@
-package gdu.com.app12.util;
+package com.gdu.app12.util;
 
 import java.security.MessageDigest;
 

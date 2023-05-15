@@ -21,9 +21,14 @@
     
     <hr>
     
-    <form id="frmJoin" method="post" action="${contextPath}/user/join.do">
+    <form id="frmJoin" method="post" action="${contextPath}/user/join.form">
+    
+    <!-- agree.jsp에서 전달된 location, event 속성 -->
+    <input type="hidden" name="location" value="${location}">
+    <input type="hidden" name="event" value="${event}">
     
       <div>
+      <!-- 정규식 중복체크, ajax 처리가 필요하다, 화면이 넘어가면 안되니까, msgid에 메시지가 표시된다 가능한 아이디다 이런거 -->
         <label for="id">아이디*</label>
         <input type="text" name="id" id="id">
         <span id="msgId"></span>
