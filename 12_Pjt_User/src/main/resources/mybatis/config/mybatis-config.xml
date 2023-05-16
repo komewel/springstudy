@@ -13,6 +13,9 @@
   <!-- typeAliases,어떤 클래스를 줄여서 별명을 붙여서 간편하게(타이핑을 줄이기 위해서) 이용할 수 있다  -->
 <typeAliases>
   <typeAlias alias="UserDTO" type="com.gdu.app12.domain.UserDTO" /> 
+  <typeAlias alias="LeaveUserDTO" type="com.gdu.app12.domain.LeaveUserDTO" /> 
+  <typeAlias alias="SleepUserDTO" type="com.gdu.app12.domain.SleepUserDTO" /> 
+  <typeAlias alias="UserAccessDTO" type="com.gdu.app12.domain.UserAccessDTO" /> 
 </typeAliases>
   
 </configuration>
