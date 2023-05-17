@@ -7,7 +7,7 @@
 <mapper namespace="com.gdu.app12.mapper.UserMapper">
 
 	<select id="selectUserById" parameterType="String" resultType="UserDTO">
-		SELECT ID
+		SELECT ID, EMAIL, JOINED_AT
 		  FROM USER_T
 		 WHERE ID = #{id} 
 	</select>
@@ -42,6 +42,95 @@
 		 WHERE EMAIL = #{email} 
 	</select>
 	
+	<insert id="insertUser" parameterType="UserDTO">
+		INSERT INTO USER_T (
+			USER_NO
+			, ID
+			, PW
+			, NAME
+			, GENDER
+			, EMAIL
+			, MOBILE
+			, BIRTHYEAR
+			, BIRTHDATE
+			, POSTCODE
+			, ROAD_ADDRESS
+			, JIBUN_ADDRESS
+			, DETAIL_ADDRESS
+			, EXTRA_ADDRESS
+			, AGREECODE
+			, JOINED_AT
+			, PW_MODIFIED_AT
+			, AUTOLOGIN_ID
+			, AUTOLOGIN_EXPIRED_AT
+		) VALUES (
+			USER_SEQ.NEXTVAL
+			, #{id}
+			, #{pw}
+			, #{name}
+			, #{gender}
+			, #{email}
+			, #{mobile}
+			, #{birthyear}
+			, #{birthdate}
+			, #{postcode}
+			, #{roadAddress}
+			, #{jibunAddress}
+			, #{detailAddress}
+			, #{extraAddress}
+			, #{agreecode}
+			, SYSDATE
+			, SYSDATE
+			, NULL
+			, NULL
+		)
+		
+	</insert>
+		
+	<select id="selectUserByUserDTO" parameterType="UserDTO" resultType="UserDTO">
+		SELECT ID
+		  FROM USER_T
+		 WHERE ID = #{id}
+		   AND PW = #{pw} 
+	</select>
+		
+	<!-- 첫 로그인은 insert 다음부터는 update -->
+	<insert id="insertUserAccess" parameterType="String">
+		INSERT INTO USER_ACCESS_T (
+			ID
+			, LAST_LOGIN_AT
+		) VALUES (
+			#{id}
+			, SYSDATE
+		)
+	</insert>
+
+	<update id="updateUserAccess" parameterType="String">
+		UPDATE USER_ACCESS_T
+		   SET LAST_LOGIN_AT = SYSDATE
+		 WHERE ID = #{id}  
+	</update>	
+	
+	<insert id="insertLeaveUser" parameterType="LeaveUserDTO">
+		INSERT INTO LEAVE_USER_T (
+			ID
+		  , EMAIL
+		  , JOINED_AT
+		  , LEAVED_AT
+		) VALUES (
+			#{id}
+		  ,	#{email}
+		  , #{joinedAt}
+		  , SYSDATE	
+		)
+	</insert>
+	
+	<!-- 외래키 때문에 우리가 따로 지울 필요없이 이게 지워지면 접속기록 테이블은 지워진다. ON DELETE CASCADE 때문에 -->
+	<delete id="deleteUser" parameterType="String">
+		DELETE 
+		  FROM USER_T
+		 WHERE ID = #{id} 
+	</delete>
 	
 
 	

@@ -268,9 +268,9 @@
     
       <div>
         <label for="birthyear">생년월일*</label>
-        <select name="birthyear" id="birthyear">100년~내년목록만들기</select>
-        <select name="birthmonth" id="birthmonth">1~12월</select>
-        <select name="birthdate" id="birthdate">1~31일(월참고)</select>       
+        <select name="birthyear" id="birthyear"></select>
+        <select name="birthmonth" id="birthmonth"></select>
+        <select name="birthdate" id="birthdate"></select>       
       </div>
       
       <div>
