@@ -21,11 +21,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class ConfirmLoginAspect {
 
 	// 포인트컷 : confirmLoginAspect를 동작 시킬 메소드 
-	@Pointcut("execution(* com.gdu.app12.controller.*Controller.requiredLogin_*(..)") // * : 모든 반환타입 , *Controller: 모든 컨트롤러, requiredLogin_ 가 앞에 써져 있는 모든 메소드 (..) : 모든 매개변수
+	@Pointcut("execution(* com.gdu.app12.controller.*Controller.requiredLogin_*(..))") // * : 모든 반환타입 , *Controller: 모든 컨트롤러, requiredLogin_ 가 앞에 써져 있는 모든 메소드 (..) : 모든 매개변수
 	public void requiredLogin() { }
 	
 	// 조인포인트(컨트롤러의 모든 메소드)가 동작하기 이전에 포인트컷이 동작
-	@Before("requiredLogin") // requiredLogin가 실행되기전에 실행될 동작
+	@Before("requiredLogin()") // requiredLogin가 실행되기전에 실행될 동작
 	public void requiredLoginHandler(JoinPoint joinPoint) throws Exception {
 		
 		// 로그인 확인을 위해서 HttpServletRequest를 구한 뒤 HttpSession을 구한다.
@@ -54,5 +54,8 @@ public class ConfirmLoginAspect {
 				out.close();
 				}
 		}
+	
+	// ConfirmLoginAspect 실행 이후 컨트롤러의 메소드가 실행되기 때문에 
+	// 컨트롤러의 메소드 실행을 막을 수 있는 인터셉터로 변경한다. (사용되지 않는 클래스 = aspectS)
 	}
 
