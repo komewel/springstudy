@@ -42,7 +42,7 @@
           아이디 기억
         </label>
         <label for="autoLogin">
-          <input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">
+          <input type="checkbox" name="chkAutoLogin" id="chkAutoLogin"> <!-- 체크했을경우: value(x)값이 없으면 on 체크했을경우: null -->
           자동 로그인
         </label>
       </div>
