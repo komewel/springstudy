@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+  
+  <!-- settings -->
+  <settings>
+  <setting name="mapUnderscoreToCamelCase" value="true" /> <!-- value에서 기본값은 false -->
+</settings>
+
+  <!-- typeAliases,어떤 클래스를 줄여서 별명을 붙여서 간편하게(타이핑을 줄이기 위해서) 이용할 수 있다  -->
+<typeAliases>
+  <typeAlias alias="MovieDTO" type="com.gdu.movie.domain.MovieDTO" /> 
+  <typeAlias alias="QueryDTO" type="com.gdu.movie.domain.QueryDTO" /> 
+</typeAliases>
+  
+</configuration>
