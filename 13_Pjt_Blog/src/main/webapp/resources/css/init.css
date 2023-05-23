@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');  
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");  
+/* 리소스(내컴퓨터)에 있는것은 <script>태그로 서버에서 받아와서 쓰는 것은 @import으로 관리 할수 있다 */
+
+*{
+  font-family: 'Noto Sans KR', sans-serif;	
+  font-size: 14px;
+  color: #121212;
+}
+/* 캐싱, init.css의 최신 정보를 안읽고 자기가 전에 가지고 온 과거정보를 계속 로드한다 최신정보가 아닌 과거정보를
+   해결방법, 1. (추천)주소를 바꿔준다, 파라미터가 마치 있는것처럼 마치 전체경로가 바뀐것처럼 파라미터 부분은 경로이동에 영향을 주지는 않기때문에
+    		 2. 브라우저에서 캐시를 지운다.	*/
