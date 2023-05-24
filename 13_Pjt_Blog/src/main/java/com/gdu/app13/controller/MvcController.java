@@ -11,4 +11,10 @@ public class MvcController {
 		return "index";
 	}
 	
+	/*
+	@GetMapping("/header.do")
+	public String header() {
+		return "layout/header";
+	}
+	*/
 }

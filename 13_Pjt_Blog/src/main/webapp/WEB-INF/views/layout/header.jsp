@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css?dt=${dt}" />
 </head>
 <body>
-
+	<!-- header.do @Getmapping으로 받아서 처리해도 된다. -->
 	<div>
 		<h1>My Blog</h1>
 		<ul>
@@ -26,6 +26,7 @@
 			<li><a href="${contextPath}/qna/list.do">QnA</a></li>
 		</ul>
 	</div>
+	
 	
 	<hr>
 
