@@ -1,0 +1,27 @@
+content 
+<img src="/	/ /uuid.extension"> 실제로 저장된 파일 이름
+
+Java HTML Parser: jsoup(자바 html 태그분석기 라이브러리)
+
+------------------------------------------------------
+
+조회수는 상세보기랑 관련이 있다 
+update를 해야하는데  
+update delete insert는 redirect를 해야하는데
+그러면 데이터를 못가져간다
+forward를 해야하는데 
+update delete insert는 redirect를 해야만한다.
+이럴때는 굳이 상세보기와 조회수를 연달아 한다는 개념보다는 
+매핑을 두개로 쪼갠다
+
+- 수업  
+   기본 배포
+  REST 방식의 개발
+   부트 + MySQL + Thymeleaf
+
+- 보충
+  jenkins 자동 배포   (3~4 시간)
+  자바 스트림 및 람다 (2일) - 화,수 (5/30 ~ 5/31)
+
+- 파이널(역할 바꿔서 개발하기)
+  부트 + MySQL + Thymeleaf

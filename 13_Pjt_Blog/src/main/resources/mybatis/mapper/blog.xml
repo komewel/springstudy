@@ -5,17 +5,41 @@
 
 <!-- namespace는 @Mapper를 지정한다. -->
 <mapper namespace="com.gdu.app13.mapper.BlogMapper">
+	
+  <resultMap type="BlogDTO" id="BlogMap">  <!-- DTO 안에 DTO가 있는경우 제대로 값이 전달이 안되므로 맵을 만들어서 전달한다. -->
+	    <id column="BLOG_NO" property="blogNo"/>
+	    <result column="TITLE" property="title"/>
+	    <result column="CONTENT" property="content"/>
+	    <result column="HIT" property="hit"/>
+	    <result column="CREATED_AT" property="createdAt"/>
+	    <result column="MODIFIED_AT" property="modifiedAt"/>
+	    <association javaType="MemberDTO" property="memberDTO">
+	      <id column="MEMBER_NO" property="memberNo"/>
+	      <result column="ID" property="id"/>
+	      <result column="PW" property="pw"/>
+	      <result column="NAME" property="name"/>
+	    </association>
+  </resultMap>
+
 	<select id="getBlogCount" resultType="int">
 		SELECT COUNT(*)
 		  FROM BLOG_T
 	</select>
 	
-	<select id="getBlogList" parameterType="Map" resultType="BlogDTO">
-		
+	<select id="getBlogList" parameterType="Map" resultMap="BlogMap"> <!-- 여기서만 DTO로 인식한다, 알아서 map으로 인식한다. -->
+		    SELECT A.BLOG_NO, A.TITLE, A.CONTENT, A.HIT, A.CREATED_AT, A.MODIFIED_AT, A.MEMBER_NO, A.ID
+		      FROM (SELECT ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) AS RN, B.BLOG_NO, B.TITLE, B.CONTENT, B.HIT, B.CREATED_AT, B.MODIFIED_AT, B.MEMBER_NO, M.ID
+		              FROM MEMBER_T M INNER JOIN BLOG_T B
+		                ON M.MEMBER_NO = B.MEMBER_NO) A
+		     WHERE A.RN BETWEEN #{begin} AND #{end}        
 	</select>
 	
 	<!-- CREATED_AT 같은 경우 지금은 SYSDATE로 처리하지만 실무에서는 VARCHAR2로 처리한다.(파이널때는 이렇게 해보자) -->
 	<insert id="addBlog" parameterType="BlogDTO">
+		<selectKey keyProperty="blogNo" resultType="int" order="BEFORE">
+			SELECT BLOG_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey>
 		INSERT INTO BLOG_T (
 			BLOG_NO
 		  , TITLE
@@ -25,7 +49,7 @@
 		  , MODIFIED_AT
 		  , MEMBER_NO		
 		) VALUES (
-			BLOG_SEQ.NEXTVAL
+			#{blogNo}
 		  , #{title}
 		  , #{content}
 		  , 0
@@ -36,6 +60,27 @@
 	</insert>
 	<!-- BlogDTO안에 있는 memberDTO안에 있는 데이터를 꺼내는 경우 -->
 	
-	
+	 <insert id="addSummernoteImage" parameterType="SummernoteImageDTO">
+		   INSERT INTO SUMMERNOTE_IMAGE_T (
+		        FILESYSTEM_NAME
+		      , BLOG_NO
+		    ) VALUES (
+		        #{filesystemName}
+		      , #{blogNo}
+		    )
+	  </insert>
+	  
+	  <update id="increaseHit" parameterType="int">
+	  	UPDATE BLOG_T
+	  	   SET HIT + 1
+	  	 WHERE BLOG_NO = #{blogNo}  
+	  </update>
+	  
+	  <select id="getBlogByNo" parameterType="int" resultMap="BlogMap">
+	  	SELECT B.BLOG_NO, B.TITLE, B.CONTENT, B.HIT, B.CREATED_AT, B.MODIFIED_AT, B.MEMBER_NO, M.ID
+		  FROM MEMBER_T M INNER JOIN BLOG_T B
+	        ON M.MEMBER_NO = B.MEMBER_NO
+	     WHERE B.BLOG_NO = #{blogNo}   
+	  </select>
 	
 </mapper>
