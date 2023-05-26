@@ -21,14 +21,14 @@
 	    </association>
   </resultMap>
 
-	<select id="getBlogCount" resultType="int">
-		SELECT COUNT(*)
-		  FROM BLOG_T
-	</select>
+	  <select id="getBlogCount" resultType="int">
+	    SELECT COUNT(*)
+	      FROM BLOG_T
+	  </select>
 	
 	<select id="getBlogList" parameterType="Map" resultMap="BlogMap"> <!-- 여기서만 DTO로 인식한다, 알아서 map으로 인식한다. -->
 		    SELECT A.BLOG_NO, A.TITLE, A.CONTENT, A.HIT, A.CREATED_AT, A.MODIFIED_AT, A.MEMBER_NO, A.ID
-		      FROM (SELECT ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) AS RN, B.BLOG_NO, B.TITLE, B.CONTENT, B.HIT, B.CREATED_AT, B.MODIFIED_AT, B.MEMBER_NO, M.ID
+		      FROM (SELECT ROW_NUMBER() OVER(ORDER BY BLOG_NO DESC) AS RN, B.BLOG_NO, B.TITLE, B.CONTENT, B.HIT, B.CREATED_AT, B.MODIFIED_AT, B.MEMBER_NO, M.ID, M.NAME
 		              FROM MEMBER_T M INNER JOIN BLOG_T B
 		                ON M.MEMBER_NO = B.MEMBER_NO) A
 		     WHERE A.RN BETWEEN #{begin} AND #{end}        

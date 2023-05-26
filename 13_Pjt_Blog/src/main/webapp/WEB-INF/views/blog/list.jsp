@@ -6,20 +6,19 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="블로그" name="title" />
+  <jsp:param name="title" value="블로그" />
 </jsp:include>
 
-	<div>
-	
-		<h1>블로그 목록</h1>
-	
-	
-	<c:if test="${sessionScope.loginId ne null}">
-		<div>
-			<input type="button" value="블로그 작성하기" onclick="fnWrite()">
-		</div>
-	</c:if>
-	
+<div>
+
+  <h1>블로그 목록</h1>
+  
+  <c:if test="${sessionScope.loginId ne null}">
+    <div>
+      <input type="button" value="블로그 작성하기" onclick="fnWrite()">
+    </div>
+  </c:if>
+		
 	<div>
 	 <table border="1">
 	  <caption style="text-align: center;">${pagination}</caption>
